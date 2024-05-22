@@ -7,7 +7,7 @@ interface SubmitFields {
   title: string;
   content: string;
 }
-function QuizQuestionModal({
+function TestQuestionModal({
   opened,
   close,
   classId,
@@ -88,4 +88,4 @@ function QuizQuestionModal({
   );
 }
 
-export default QuizQuestionModal;
+export default TestQuestionModal;

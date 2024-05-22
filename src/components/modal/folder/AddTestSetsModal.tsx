@@ -9,7 +9,7 @@ import {
 } from "@mantine/core";
 import { IconPlus } from "@tabler/icons-react";
 
-const AddQuizSetsModal = ({
+const AddTestSetsModal = ({
   opened,
   close,
 }: {
@@ -24,7 +24,7 @@ const AddQuizSetsModal = ({
           <div className="p-4">
             <Modal.Header>
               <Modal.Title className="font-bold text-size text-2xl">
-                Add quiz sets
+                Add test sets
               </Modal.Title>
               <Modal.CloseButton />
             </Modal.Header>
@@ -46,7 +46,7 @@ const AddQuizSetsModal = ({
               </div>
               <Paper shadow="lg" radius="md" withBorder p="xl" className="py-4">
                 <Group className="justify-between">
-                  <Text className="font-bold text-lg">Quiz Set 1</Text>
+                  <Text className="font-bold text-lg">Test Set 1</Text>
                   <Button variant="default" size="sm" radius="md">
                     <IconPlus size={12} />
                   </Button>
@@ -60,4 +60,4 @@ const AddQuizSetsModal = ({
   );
 };
 
-export default AddQuizSetsModal;
+export default AddTestSetsModal;

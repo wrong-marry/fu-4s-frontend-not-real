@@ -1,28 +1,28 @@
 import axios from "axios";
-import QuizCreateForm from "../../../components/quiz/QuizCreateForm";
+import TestCreateForm from "../../../components/test/TestCreateForm";
 import { useActionData } from "react-router-dom";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 export interface Answer {
-  quizAnswerId: number;
+  testAnswerId: number;
   content: string;
   isCorrect: boolean;
 }
 
 export interface Question {
-  quizQuestionId: number;
+  testQuestionId: number;
   question: string;
   answers: Answer[];
 }
 
-export interface QuizForm {
+export interface TestForm {
   subjectCode: string;
   title: string;
   postTime: Date;
   uploader: string;
   questions: Question[];
 }
-function CreateQuizPage() {
+function CreateTestPage() {
   const actionData = useActionData() as {
     error: boolean;
     msg: string;
@@ -36,7 +36,7 @@ function CreateQuizPage() {
     }
   }, [actionData]);
 
-  return <QuizCreateForm />;
+  return <TestCreateForm />;
 }
 async function action({ request }: { request: Request }) {
   try {
@@ -50,7 +50,7 @@ async function action({ request }: { request: Request }) {
         questions: string;
       };
     const url = {
-      POST: "http://localhost:8080/api/v1/quiz/create-quiz-set",
+      POST: "http://localhost:8080/api/v1/test/create-test-set",
     };
     const payload = {
       POST: {
@@ -62,11 +62,11 @@ async function action({ request }: { request: Request }) {
     };
 
     const errorMsg = {
-      POST: "Cannot create quiz. Please try again.",
+      POST: "Cannot create test. Please try again.",
     };
 
     const successMsg = {
-      POST: "Quiz created successfully",
+      POST: "Test created successfully",
     };
 
     let res;
@@ -121,5 +121,5 @@ async function getCategoriesList() {
   }
 }
 
-export { action as createQuizAction, getCategoriesList };
-export default CreateQuizPage;
+export { action as createTestAction, getCategoriesList };
+export default CreateTestPage;

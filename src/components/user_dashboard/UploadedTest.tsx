@@ -12,24 +12,24 @@ import { useEffect, useState } from "react";
 import classes from "./Carousel.module.css";
 import { useNavigate } from "react-router-dom";
 
-interface Quiz {
-  quizId: string;
-  quizName: string;
+interface Test {
+  testId: string;
+  testName: string;
   numberOfQuestions: number;
   userName: string;
   view: number;
-  timeRecentViewQuiz: string; // Change the type to string
+  timeRecentViewTest: string; // Change the type to string
   // Add other properties as needed
 }
 
-function PopularQuiz() {
+function PopularTest() {
   const navigate = useNavigate();
 
-  const [popularQuiz, setpopularQuiz] = useState<Quiz[]>([]);
+  const [popularTest, setpopularTest] = useState<Test[]>([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/v1/quiz/get-all-quiz")
+      .get("http://localhost:8080/api/v1/test/get-all-test")
       .then((res) => {
         const sortedList =
           res && res.data
@@ -37,7 +37,7 @@ function PopularQuiz() {
                 (a: { view: number }, b: { view: number }) => b.view - a.view
               )
             : [];
-        setpopularQuiz(sortedList);
+        setpopularTest(sortedList);
       })
       .catch((error) => {
         // Handle error here
@@ -46,21 +46,21 @@ function PopularQuiz() {
       });
   }, []);
 
-  const handleClickUpdateTime = async (quizId: any) => {
+  const handleClickUpdateTime = async (testId: any) => {
     await axios.put(
-      `http://localhost:8080/api/v1/quiz/update-time-quiz?id=${quizId}`
+      `http://localhost:8080/api/v1/test/update-time-test?id=${testId}`
     );
   };
 
-  const handleClickIncreaseView = async (quizId: any) => {
+  const handleClickIncreaseView = async (testId: any) => {
     await axios.put(
-      `http://localhost:8080/api/v1/quiz/increase-view?quiz-id=${quizId}`
+      `http://localhost:8080/api/v1/test/increase-view?test-id=${testId}`
     );
   };
 
   return (
     <>
-      {popularQuiz.length > 0 ? (
+      {popularTest.length > 0 ? (
         <Carousel
           slideSize={"33.333333%"}
           height={"150px"}
@@ -71,7 +71,7 @@ function PopularQuiz() {
           dragFree
           classNames={classes}
         >
-          {popularQuiz.map((quiz, index) => (
+          {popularTest.map((test, index) => (
             <Carousel.Slide key={index}>
               <Card
                 shadow="sm"
@@ -84,20 +84,20 @@ function PopularQuiz() {
                 <Stack
                   className="h-full justify-between"
                   onClick={() => {
-                    handleClickUpdateTime(quiz.quizId);
-                    handleClickIncreaseView(quiz.quizId);
-                    navigate(`/quiz/set/${quiz.quizId}`);
+                    handleClickUpdateTime(test.testId);
+                    handleClickIncreaseView(test.testId);
+                    navigate(`/test/set/${test.testId}`);
                   }}
                 >
                   <Stack gap={3}>
-                    <Text fw={500}>{quiz.quizName}</Text>
+                    <Text fw={500}>{test.testName}</Text>
                     <Badge color="indigo">
-                      {quiz.numberOfQuestions} Question
+                      {test.numberOfQuestions} Question
                     </Badge>
                   </Stack>
                   <Group gap={"xs"}>
                     <Avatar variant="filled" radius="xl" size="sm" />
-                    <Text size="sm">{quiz.userName}</Text>
+                    <Text size="sm">{test.userName}</Text>
                   </Group>
                 </Stack>
               </Card>
@@ -105,10 +105,10 @@ function PopularQuiz() {
           ))}
         </Carousel>
       ) : (
-        <Text c={"dimmed"}>No popular quizzes available :(</Text>
+        <Text c={"dimmed"}>No popular tests available :(</Text>
       )}
     </>
   );
 }
 
-export default PopularQuiz;
+export default PopularTest;
