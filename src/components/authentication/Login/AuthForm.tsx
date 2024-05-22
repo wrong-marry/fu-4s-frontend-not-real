@@ -40,11 +40,11 @@ export default function AuthForm(props: PaperProps) {
   const [searchParams] = useSearchParams();
   const isLogin = searchParams.get("mode") === "login";
   const isSubmitting = navigation.state === "submitting";
-  DocumentTitle(`QuizToast | ${upperFirst(isLogin ? "Login" : "Register")}`);
+  DocumentTitle(`FU-4S | ${upperFirst(isLogin ? "Login" : "Register")}`);
 
   let validationLogin = () => {
     return {
-      email: isEmail("Please enter a valid email"),
+      username: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
       password: matches(
         /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,32}$/,
         "Invalid password"
@@ -68,7 +68,6 @@ export default function AuthForm(props: PaperProps) {
       username: "",
       firstname: "",
       lastname: "",
-      telephone: "",
       email: "",
       name: "",
       password: "",
@@ -85,14 +84,13 @@ export default function AuthForm(props: PaperProps) {
       lastname: formFieldData.lastname,
       email: formFieldData.email,
       password: formFieldData.password,
-      telephone: formFieldData.telephone,
       username: formFieldData.username,
     };
   };
 
   const assignLoginPayload = (formFieldData: any) => {
     return {
-      email: formFieldData.email,
+      username: formFieldData.username,
       password: formFieldData.password,
     };
   };
@@ -115,8 +113,8 @@ export default function AuthForm(props: PaperProps) {
         <Paper radius="md" p="xl" withBorder {...props}>
           <Text size="lg" fw={500} className="mb-3">
             {isLogin
-              ? "Login to your QuizToast account"
-              : "Create new QuizToast account"}
+              ? "Login to your FU-4S account"
+              : "Create new FU-4S account"}
           </Text>
 
           {/* <Group grow mb="md" mt="md">
@@ -163,34 +161,25 @@ export default function AuthForm(props: PaperProps) {
                     />
                   </Group>
 
-                  <Group grow>
-                    <TextInput
-                      required
-                      label="Username"
-                      placeholder="Your username"
+                  <TextInput
+                      label="Email"
+                      placeholder="youremail@domain"
                       radius="md"
-                      name="username"
-                      {...form.getInputProps("username")}
-                    />
-                    <TextInput
-                      required
-                      label="Phone number"
-                      placeholder="Your phone number"
-                      radius="md"
-                      name="telephone"
-                      {...form.getInputProps("telephone")}
-                    />
-                  </Group>
+                      name="email"
+                      {...form.getInputProps("email")}
+                  />
                 </>
               )}
 
               <TextInput
-                label="Email"
-                placeholder="youremail@domain"
-                radius="md"
-                name="email"
-                {...form.getInputProps("email")}
+                  required
+                  label="Username"
+                  placeholder="Your username"
+                  radius="md"
+                  name="username"
+                  {...form.getInputProps("username")}
               />
+
 
               <PasswordInput
                 label="Password"

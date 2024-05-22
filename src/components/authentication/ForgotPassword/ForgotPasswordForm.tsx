@@ -59,7 +59,7 @@ function ForgotPasswordForm({
                 <TextInput
                   size="md"
                   radius="md"
-                  label="enter your email"
+                  label="Enter your email"
                   placeholder="type here"
                   {...form.getInputProps("email")}
                 />
