@@ -44,7 +44,7 @@ export default function AuthForm(props: PaperProps) {
 
   let validationLogin = () => {
     return {
-      username: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
+      username: (value:string) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
       password: matches(
         /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,32}$/,
         "Invalid password"

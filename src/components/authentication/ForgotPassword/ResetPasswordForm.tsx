@@ -4,7 +4,7 @@ import { Form, useActionData, useNavigation, useSubmit } from "react-router-dom"
 import { toast } from "react-toastify";
 import DocumentTitle from "../../document-title/DocumentTitle";
 function ResetPasswordForm({ token }: { token: string }) {
-  DocumentTitle("QuizToast | Reset Password");
+  DocumentTitle("FU-4S | Reset Password");
   const submit = useSubmit();
   const actionData = useActionData() as { success: boolean, msg: string };
   const navigation = useNavigation();

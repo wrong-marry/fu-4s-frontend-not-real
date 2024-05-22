@@ -39,7 +39,7 @@ interface FormValues {
 const formValidationSchema = z.object({
   comment: z
     .string()
-    .max(2000, "Comment must be less than 2000 characters")
+    .max(1000, "Comment must be less than 1000 characters")
     .min(1, "Comment is required"),
 });
 function ClassQuestionDetail() {

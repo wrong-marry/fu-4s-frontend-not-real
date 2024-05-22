@@ -16,9 +16,10 @@ export interface Question {
 }
 
 export interface QuizForm {
-  categoryName: string;
+  subjectCode: string;
   title: string;
-  description: string;
+  postTime: Date;
+  uploader: string;
   questions: Question[];
 }
 function CreateQuizPage() {
@@ -41,12 +42,11 @@ async function action({ request }: { request: Request }) {
   try {
     const { method } = request;
     const formData = await request.formData();
-    const { userId, title, description, questions, categoryId } =
+    const { userName, title, questions, subjectCode } =
       Object.fromEntries(formData) as {
-        userId: string;
-        categoryId: string;
+        userName: string;
+        subjectCode: string;
         title: string;
-        description: string;
         questions: string;
       };
     const url = {
@@ -54,10 +54,9 @@ async function action({ request }: { request: Request }) {
     };
     const payload = {
       POST: {
-        userId: Number(userId),
-        categoryId: Number(categoryId),
+        userName: userName,
+        subjectCode: subjectCode,
         title: title,
-        description: description,
         questions: questions ? JSON.parse(questions) : "",
       },
     };

@@ -14,7 +14,7 @@ function ForgotPasswordForm({
 }: {
   setForgotEmail: Dispatch<SetStateAction<string>>;
 }) {
-  DocumentTitle("QuizToast | Forgot Password");
+  DocumentTitle("FU-4S | Forgot Password");
   const submit = useSubmit();
   const actionData = useActionData() as { hasEmail: boolean };
   const navigation = useNavigation();

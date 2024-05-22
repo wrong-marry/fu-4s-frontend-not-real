@@ -5,7 +5,7 @@ function Sent({ forgotEmail }: { forgotEmail: string }) {
   const encryptedEmail = `${forgotEmail.charAt(0)}***${forgotEmail.slice(
     forgotEmail.indexOf("@")
   )}`;
-  DocumentTitle("QuizToast | Forgot Password");
+  DocumentTitle("FU-4S | Forgot Password");
   return (
     <>
       <Container size="xs">

@@ -32,7 +32,7 @@ const InviteMemberModal = ({
           </div>
           <Modal.Body>
             <Text className="my-5 mx-4">
-              To invite members to this class, add their Quiztoast usernames or
+              To invite members to this class, add their FU-4S usernames or
               emails below (separate by commas or line breaks).
             </Text>
             <JsonInput

@@ -37,7 +37,7 @@ interface Props {
 const formValidationSchema = z.object({
   reply: z
     .string()
-    .max(2000, "Reply must be less than 2000 characters")
+    .max(1000, "Reply must be less than 1000 characters")
     .min(1, "Reply is required"),
 });
 function CommentSection({ comments, question }: Props) {

@@ -5,7 +5,7 @@ import PopularAuthor from "../../components/user_dashboard/PopularAuthor";
 import DocumentTitle from "../../components/document-title/DocumentTitle";
 
 function UserDashboard() {
-  DocumentTitle("QuizToast | Dashboard");
+  DocumentTitle("FU-4S | Dashboard");
   return (
     <>
       <Container className="container">

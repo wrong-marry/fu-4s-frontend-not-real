@@ -15,11 +15,14 @@ export default function HeroContent() {
 
       <div className="h-full flex justify-start items-center w-[80%] mx-auto">
         <div className="basis-1/2">
-          <Title >QuizToast is Awesome!</Title>
+          <Title >Welcome to FU-4S Forum!</Title>
           <Text className="text-left" size="xl" mt="xl">
-            Build fully functional accessible web applications faster than ever
-            – Mantine includes more than 120 customizable components and hooks
-            to cover you in any situation
+            A dedicated platform for FPT University students majoring in
+            Software Engineering.
+          </Text>
+          <Text className="text-left" size="xl">
+            Join the community to get your educational journey enhanced with
+            valuable resources and interactive discussions!
           </Text>
 
           <Button variant="gradient" size="xl" radius="xl" className="mt-5">
