@@ -257,7 +257,10 @@ const router = createBrowserRouter([
           </Suspense>
         ),
       },
-      { path: "logout", action: logout },
+      { 
+        path: "logout",
+        loader: logout 
+      },
     ],
   },
   {
