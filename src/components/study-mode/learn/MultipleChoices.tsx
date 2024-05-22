@@ -12,27 +12,27 @@ import {
 import {
   CORRECT_SENTENCES,
   INCORRECT_SENTENCES,
-  QuizData,
+  TestData,
 } from "../../../pages/study-mode/learn/LearnPage";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { StudyModeContext } from "../../../store/study-mode-context";
 import LearnSummary from "./LearnSummary";
-import { QuizInfoContext } from "../../../store/quiz-info-context";
+import { TestInfoContext } from "../../../store/test-info-context";
 import EndScreen from "./EndScreen";
 
 const QUESTION_PER_ROUND = 5;
 
-function MultipleChoices({ data }: { data: QuizData }) {
+function MultipleChoices({ data }: { data: TestData }) {
   const { changeRoundIndicator, settings } = useContext(StudyModeContext);
-  const { assignQuizInfo } = useContext(QuizInfoContext);
-  const [quizData, setQuizData] = useState([...(data.questions ?? [])]);
+  const { assignTestInfo } = useContext(TestInfoContext);
+  const [testData, setTestData] = useState([...(data.questions ?? [])]);
 
   const CORRECT_SENTENCE = CORRECT_SENTENCES.sort(() => Math.random() - 0.5)[0];
   const INCORRECT_SENTENCE = INCORRECT_SENTENCES.sort(
     () => Math.random() - 0.5
   )[0];
   const applySortingOrShuffling = () => {
-    let mutatedData = [...quizData];
+    let mutatedData = [...testData];
 
     if (settings.learn.isShuffled) {
       mutatedData = mutatedData.sort(() => 0.5 - Math.random());
@@ -44,13 +44,13 @@ function MultipleChoices({ data }: { data: QuizData }) {
       mutatedData = [...(data.questions ?? [])];
     }
 
-    setQuizData(mutatedData);
+    setTestData(mutatedData);
   };
 
   useEffect(() => {
-    assignQuizInfo({
-      id: data?.quizId,
-      name: data?.quizName,
+    assignTestInfo({
+      id: data?.testId,
+      name: data?.testName,
       totalQuestion: data?.numberOfQuestions,
     });
     changeRoundIndicator(1);
@@ -70,15 +70,15 @@ function MultipleChoices({ data }: { data: QuizData }) {
     boolean | null
   >(null);
   const activeQuestionIndex = userAnswers.length; // get the index of the active question
-  const isComplete = currentGlobalQuestionIndex === quizData.length; // check if all questions have been answered
+  const isComplete = currentGlobalQuestionIndex === testData.length; // check if all questions have been answered
   const roundsQuestions = useMemo(() => {
     // split the questions into rounds relaying on QUESTION_PER_ROUND
     const rounds = [];
-    for (let i = 0; i < quizData.length; i += QUESTION_PER_ROUND) {
-      rounds.push(quizData.slice(i, i + QUESTION_PER_ROUND));
+    for (let i = 0; i < testData.length; i += QUESTION_PER_ROUND) {
+      rounds.push(testData.slice(i, i + QUESTION_PER_ROUND));
     }
     return rounds;
-  }, [quizData, QUESTION_PER_ROUND]);
+  }, [testData, QUESTION_PER_ROUND]);
 
   const isRoundComplete =
     activeQuestionIndex === roundsQuestions[currentRound].length;

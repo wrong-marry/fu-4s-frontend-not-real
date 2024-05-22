@@ -224,7 +224,7 @@ function Navbar() {
 
               <Menu.Dropdown>
                 <Menu.Label>Create</Menu.Label>
-                <NavLink to={"/create-quiz"}>
+                <NavLink to={"/create-test"}>
                   <Menu.Item
                     leftSection={
                       <IconLibraryPlus
@@ -232,7 +232,7 @@ function Navbar() {
                       />
                     }
                   >
-                    Quiz set
+                    Test set
                   </Menu.Item>
                 </NavLink>
 

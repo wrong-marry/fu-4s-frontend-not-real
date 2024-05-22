@@ -25,7 +25,7 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { StudyModeContext } from "../../../store/study-mode-context";
-import { QuizInfoContext } from "../../../store/quiz-info-context";
+import { TestInfoContext } from "../../../store/test-info-context";
 import { Link } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
 import FlashcardSettings from "../../modal/study-mode/FlashcardSettings";
@@ -33,7 +33,7 @@ import LearnSettings from "../../modal/study-mode/LearnSettings";
 const iconStyle = { width: rem(14), height: rem(14) };
 function StudyModeNavbar() {
   const { assignStudyMode, mode, settings } = useContext(StudyModeContext);
-  const { name, id, clearQuizInfo } = useContext(QuizInfoContext);
+  const { name, id, clearTestInfo } = useContext(TestInfoContext);
   const path = window.location.pathname.split("/")[3];
   const [opened, { open, close }] = useDisclosure(false);
   useEffect(() => {
@@ -118,7 +118,7 @@ function StudyModeNavbar() {
               </Link>
             </Menu.Dropdown>
           </Menu>
-          <Link to={`/quiz/set/${id}`}>
+          <Link to={`/test/set/${id}`}>
             {mode === "Flashcard" ? (
               <Text fw={500} className="ml-6">
                 {name}
@@ -152,13 +152,13 @@ function StudyModeNavbar() {
               </ActionIcon>
             </Tooltip>
             <Tooltip label={`Exit ${mode}`}>
-              <Link to={`/quiz/set/${id}`}>
+              <Link to={`/test/set/${id}`}>
                 <ActionIcon
                   variant="subtle"
                   size="lg"
                   radius="xl"
                   aria-label="Exit"
-                  onClick={clearQuizInfo}
+                  onClick={clearTestInfo}
                 >
                   <IconX style={{ width: "70%", height: "70%" }} stroke={1.5} />
                 </ActionIcon>

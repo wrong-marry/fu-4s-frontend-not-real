@@ -26,14 +26,14 @@ import {
 import {
   loader as SetLoader,
   action as SetAction,
-} from "./pages/quiz/set/SetDetails";
+} from "./pages/test/set/SetDetails";
 import StudyModeRoot from "./pages/study-mode/StudyModeRoot";
 import { loader as FlashcardLoader } from "./pages/study-mode/flashcard/FlashcardPage";
 import { action as NavbarAction } from "./pages/Root";
 import { lazy, Suspense } from "react";
 import { Box, LoadingOverlay } from "@mantine/core";
 import LearnPage from "./pages/study-mode/learn/LearnPage";
-import { createQuizAction } from "./pages/quiz/create_form/CreateQuizPage";
+import { createTestAction } from "./pages/test/create_form/CreateTestPage";
 import ClassQuestionPage, {
   classQuestionPageAction,
   classQuestionPageLoader,
@@ -41,9 +41,9 @@ import ClassQuestionPage, {
 import { classAction, classLoader } from "./pages/class/ClassPage";
 import { folderPageAction, folderPageLoader } from "./pages/folder/FolderPage";
 import {
-  UpdateQuizSetAction,
-  UpdateQuizSetLoader,
-} from "./pages/quiz/update/UpdateQuizSet";
+  UpdateTestSetAction,
+  UpdateTestSetLoader,
+} from "./pages/test/update/UpdateTestSet";
 import { settingsAction } from "./pages/settings/SettingsPage";
 
 const AuthPage = lazy(() => import("./pages/authentication/authpage/AuthPage"));
@@ -63,18 +63,18 @@ const UserDashboard = lazy<React.ComponentType<any>>(() => {
 const ProfilePage = lazy(() => import("./pages/account/user/ProfilePage"));
 
 const ClassPage = lazy(() => import("./pages/class/ClassPage"));
-const CreateQuizPage = lazy(
-  () => import("./pages/quiz/create_form/CreateQuizPage")
+const CreateTestPage = lazy(
+  () => import("./pages/test/create_form/CreateTestPage")
 );
 
 const FolderPage = lazy(() => import("./pages/folder/FolderPage"));
-const SetDetails = lazy(() => import("./pages/quiz/set/SetDetails"));
+const SetDetails = lazy(() => import("./pages/test/set/SetDetails"));
 const FlashcardMode = lazy(
   () => import("./pages/study-mode/flashcard/FlashcardPage")
 );
 
 const Settings = lazy(() => import("./pages/settings/SettingsPage"));
-const UpdateQuizSet = lazy(() => import("./pages/quiz/update/UpdateQuizSet"));
+const UpdateTestSet = lazy(() => import("./pages/test/update/UpdateTestSet"));
 const ClassInvitation = lazy(() => import("./pages/class/ClassInvitationPage"));
 export const loadingIndicator = (
   <Box pos={"relative"} h={"100vh"} w={"100vw"}>
@@ -192,15 +192,15 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "create-quiz",
+        path: "create-test",
         loader: checkAuth,
         children: [
           {
             index: true,
-            action: createQuizAction,
+            action: createTestAction,
             element: (
               <Suspense fallback={loadingIndicator}>
-                <CreateQuizPage />
+                <CreateTestPage />
               </Suspense>
             ),
           },
@@ -222,7 +222,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "quiz/set/:id",
+        path: "test/set/:id",
         loader: checkAuth,
         children: [
           {
@@ -240,11 +240,11 @@ const router = createBrowserRouter([
             path: "edit",
             element: (
               <Suspense fallback={loadingIndicator}>
-                <UpdateQuizSet />
+                <UpdateTestSet />
               </Suspense>
             ),
-            loader: UpdateQuizSetLoader,
-            action: UpdateQuizSetAction,
+            loader: UpdateTestSetLoader,
+            action: UpdateTestSetAction,
           },
         ],
       },

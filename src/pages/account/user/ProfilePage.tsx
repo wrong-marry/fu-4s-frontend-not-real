@@ -16,12 +16,12 @@ export interface UserData {
 }
 
 export interface StudySet {
-  quizId: number;
+  testId: number;
   numberOfQuestion: number;
   author: string;
   authorFirstName: string;
   authorLastName: string;
-  quizName: string;
+  testName: string;
   createdAt: Date;
 }
 
@@ -29,7 +29,7 @@ export interface Classes {
   classId: number;
   className: string;
   numberOfStudent: number;
-  numberOfQuizSet: number;
+  numberOfTestSet: number;
 }
 
 export interface FolderResponse {
@@ -43,7 +43,7 @@ export interface FolderResponse {
 export interface Folder {
   folderId: number;
   folderName: string;
-  numberOfQuizSet: number;
+  numberOfTestSet: number;
   createdAt: string;
 }
 
@@ -61,7 +61,7 @@ export async function fetchFolderData(userId: number) {
 export async function fetchStudySetsData(userId: number) {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/v1/quiz/learned/user-id=${userId}`
+      `http://localhost:8080/api/v1/test/learned/user-id=${userId}`
     );
     return response.data;
   } catch (error) {
@@ -93,7 +93,7 @@ async function loader() {
   try {
     const url = {
       folderData: `http://localhost:8080/api/v1/folder/created/user-id=${uid}`,
-      studySetData: `http://localhost:8080/api/v1/quiz/learned/user-id=${uid}`,
+      studySetData: `http://localhost:8080/api/v1/test/learned/user-id=${uid}`,
       classData: `http://localhost:8080/api/v1/classroom/learned/user-id=${uid}`,
     };
   } catch (error) {}

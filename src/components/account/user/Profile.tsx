@@ -175,7 +175,7 @@ export default function Profile({
                   return true;
                 })
                 .map((set, index) => (
-                  <Link to={`/quiz/set/${set.quizId}`} key={index}>
+                  <Link to={`/test/set/${set.testId}`} key={index}>
                     <Paper
                       key={index}
                       className="mt-3"
@@ -200,7 +200,7 @@ export default function Profile({
                         </Group>
                       </Group>
                       <Text className="font-bold text-xl pt-1">
-                        {set.quizName}
+                        {set.testName}
                       </Text>
                     </Paper>
                   </Link>
@@ -241,8 +241,8 @@ export default function Profile({
                     >
                       <Stack gap="xs">
                         <Text className="font-semibold text-sm">
-                          {folder.numberOfQuizSet}{" "}
-                          {folder.numberOfQuizSet > 1 ? "sets" : "set"}
+                          {folder.numberOfTestSet}{" "}
+                          {folder.numberOfTestSet > 1 ? "sets" : "set"}
                         </Text>
                         <Text className="font-bold text-xl">
                           {folder.folderName}
@@ -268,8 +268,8 @@ export default function Profile({
                   >
                     <Group key={index}>
                       <Text className="font-semibold text-sm">
-                        {classItem.numberOfQuizSet}{" "}
-                        {classItem.numberOfQuizSet > 1 ? "sets" : "set"}
+                        {classItem.numberOfTestSet}{" "}
+                        {classItem.numberOfTestSet > 1 ? "sets" : "set"}
                       </Text>
                       <Text className="font-semibold text-sm">
                         {classItem.numberOfStudent}{" "}

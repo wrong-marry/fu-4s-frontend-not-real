@@ -50,14 +50,14 @@ import {
   fetchMembersData,
   Member,
   fetchUserCreatedStudySetsData,
-  addQuizToClassApi,
-  removeQuizFromClassApi,
+  addTestToClassApi,
+  removeTestFromClassApi,
   Questions,
   fetchQuestionsData,
 } from "../../pages/class/ClassPage";
 import { format } from "date-fns";
 import { Link, useActionData, useNavigate, useSubmit } from "react-router-dom";
-import QuizQuestionModal from "./QuizQuestionModal";
+import TestQuestionModal from "./TestQuestionModal";
 import deleteClassModal from "../modal/class/delete/DeleteClassModal";
 import UpdateClassModal from "../modal/class/update/UpdateClassModal";
 import { useForm, isNotEmpty } from "@mantine/form";
@@ -90,7 +90,7 @@ function Class({ classId, tab }: { classId: number; tab: string | undefined }) {
   ] = useDisclosure(false);
 
   const uid = Number(localStorage.getItem("uid"));
-  const [commonQuizIds, setCommonQuizIds] = useState<number[]>([]);
+  const [commonTestIds, setCommonTestIds] = useState<number[]>([]);
   const navigate = useNavigate();
   let isMember = members?.some((member) => member.userId === info?.userId);
   let isOwner = classData?.teacherId === info?.userId;
@@ -125,15 +125,15 @@ function Class({ classId, tab }: { classId: number; tab: string | undefined }) {
     }
   }, [uid]);
   useEffect(() => {
-    const updatedCommonQuizIds = studySets
+    const updatedCommonTestIds = studySets
       .filter((set) => {
         return studyUserCreatedSets.some(
-          (userSet) => userSet.quizId === set.quizId
+          (userSet) => userSet.testId === set.testId
         );
       })
-      .map((set) => set.quizId);
+      .map((set) => set.testId);
 
-    setCommonQuizIds(updatedCommonQuizIds);
+    setCommonTestIds(updatedCommonTestIds);
   }, [studySets, studyUserCreatedSets]);
 
   async function fetchStudySets(classId: number) {
@@ -181,27 +181,27 @@ function Class({ classId, tab }: { classId: number; tab: string | undefined }) {
     }
   }
 
-  async function addQuizToClass(classId: number, quizId: number) {
+  async function addTestToClass(classId: number, testId: number) {
     try {
-      // Make API call to add quiz to class
-      await addQuizToClassApi(classId, quizId);
+      // Make API call to add test to class
+      await addTestToClassApi(classId, testId);
 
       // After successful API call, refresh studySets data
       await fetchStudySets(classId);
     } catch (error) {
-      console.error("Error adding quiz to class:", error);
+      console.error("Error adding test to class:", error);
     }
   }
 
-  async function removeQuizFromClass(classId: number, quizId: number) {
+  async function removeTestFromClass(classId: number, testId: number) {
     try {
-      // Make API call to remove quiz from class
-      await removeQuizFromClassApi(classId, quizId);
+      // Make API call to remove test from class
+      await removeTestFromClassApi(classId, testId);
 
       // After successful API call, refresh studySets data
       await fetchStudySets(classId);
     } catch (error) {
-      console.error("Error removing quiz from class:", error);
+      console.error("Error removing test from class:", error);
     }
   }
   function fetchFilteredStudySetsData(
@@ -219,10 +219,10 @@ function Class({ classId, tab }: { classId: number; tab: string | undefined }) {
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
     } else if (filterOption === "Alphabetical") {
-      // Filter the study sets based on the quiz set name in alphabetical order
+      // Filter the study sets based on the test set name in alphabetical order
       filteredSets = studySets
         .slice()
-        .sort((a, b) => a.quizName.localeCompare(b.quizName));
+        .sort((a, b) => a.testName.localeCompare(b.testName));
     } else {
       // Handle other filter options if needed
       // For example, handle other types of filters or default behavior
@@ -268,7 +268,7 @@ function Class({ classId, tab }: { classId: number; tab: string | undefined }) {
 
   return (
     <>
-      {/* Add quiz sets modal */}
+      {/* Add test sets modal */}
       <Modal.Root
         opened={addSetsModalOpened}
         onClose={() => setAddSetsModalOpened(false)}
@@ -280,7 +280,7 @@ function Class({ classId, tab }: { classId: number; tab: string | undefined }) {
           <div className="p-4">
             <Modal.Header>
               <Modal.Title className="font-bold text-size text-2xl">
-                Add quiz sets
+                Add test sets
               </Modal.Title>
               <Modal.CloseButton />
             </Modal.Header>
@@ -289,7 +289,7 @@ function Class({ classId, tab }: { classId: number; tab: string | undefined }) {
           <Modal.Body>
             <Stack p={"xl"}>
               <Button variant="subtle" size="sm" leftSection={<IconPlus />}>
-                <Link to="/create-quiz">Create new sets</Link>
+                <Link to="/create-test">Create new sets</Link>
               </Button>
               <Select
                 className="w-1/4"
@@ -300,7 +300,7 @@ function Class({ classId, tab }: { classId: number; tab: string | undefined }) {
                 allowDeselect={false}
               />
               {studyUserCreatedSets?.map((set) => (
-                <Stack key={set.quizId}>
+                <Stack key={set.testId}>
                   <Paper
                     shadow="lg"
                     radius="md"
@@ -309,36 +309,36 @@ function Class({ classId, tab }: { classId: number; tab: string | undefined }) {
                     className="py-4"
                   >
                     <Group className="justify-between">
-                      <Text className="font-bold text-lg">{set.quizName}</Text>
-                      {commonQuizIds?.includes(set.quizId) ? (
-                        // If the quiz ID exists, render the minus button
+                      <Text className="font-bold text-lg">{set.testName}</Text>
+                      {commonTestIds?.includes(set.testId) ? (
+                        // If the test ID exists, render the minus button
                         <Button
                           variant="default"
                           size="sm"
                           radius="md"
                           onClick={() => {
-                            removeQuizFromClass(classId, set.quizId);
-                            const updatedCommonQuizIds = commonQuizIds.filter(
-                              (id) => id !== set.quizId
+                            removeTestFromClass(classId, set.testId);
+                            const updatedCommonTestIds = commonTestIds.filter(
+                              (id) => id !== set.testId
                             );
-                            setCommonQuizIds(updatedCommonQuizIds);
+                            setCommonTestIds(updatedCommonTestIds);
                           }}
                         >
                           <IconMinus size={12} />
                         </Button>
                       ) : (
-                        // If the quiz ID does not exist, render the plus button
+                        // If the test ID does not exist, render the plus button
                         <Button
                           variant="default"
                           size="sm"
                           radius="md"
                           onClick={() => {
-                            addQuizToClass(classId, set.quizId);
-                            const updatedCommonQuizIds = [
-                              ...commonQuizIds,
-                              set.quizId,
+                            addTestToClass(classId, set.testId);
+                            const updatedCommonTestIds = [
+                              ...commonTestIds,
+                              set.testId,
                             ];
-                            setCommonQuizIds(updatedCommonQuizIds);
+                            setCommonTestIds(updatedCommonTestIds);
                           }}
                         >
                           <IconPlus size={12} />
@@ -368,7 +368,7 @@ function Class({ classId, tab }: { classId: number; tab: string | undefined }) {
           <Grid.Col span={8}>
             <Stack gap={"lg"}>
               <Group>
-                <Text c={"dimmed"}>{`${classData?.numberOfQuizSet} sets`}</Text>
+                <Text c={"dimmed"}>{`${classData?.numberOfTestSet} sets`}</Text>
                 <Divider orientation="vertical" />
                 <Group gap={"md"}>
                   <Text c={"dimmed"}>created by</Text>
@@ -511,12 +511,12 @@ function Class({ classId, tab }: { classId: number; tab: string | undefined }) {
                     </Group>
                     {studySets
                       ?.filter((set) =>
-                        set.quizName
+                        set.testName
                           .toLowerCase()
                           .includes(searchQuery.toLowerCase())
                       )
                       ?.map((set, index) => (
-                        <Link to={`/quiz/set/${set.quizId}`} key={index}>
+                        <Link to={`/test/set/${set.testId}`} key={index}>
                           <Stack>
                             <Paper
                               key={index}
@@ -550,7 +550,7 @@ function Class({ classId, tab }: { classId: number; tab: string | undefined }) {
                                 </Group>
                               </Group>
                               <Text className="font-bold text-xl pt-1">
-                                {set.quizName}
+                                {set.testName}
                               </Text>
                             </Paper>
                           </Stack>
@@ -619,7 +619,7 @@ function Class({ classId, tab }: { classId: number; tab: string | undefined }) {
                         Add new question
                       </Button>
                     </Group>
-                    <QuizQuestionModal
+                    <TestQuestionModal
                       opened={addQuestionModalOpened}
                       close={handleAddQuestionClose}
                       classId={classId}
@@ -749,20 +749,20 @@ function Class({ classId, tab }: { classId: number; tab: string | undefined }) {
                     <Group>
                       <IconLayersSubtract size={20} color="gray" />
                       <Text className="font-semibold text-[14px]">
-                        {classData?.numberOfQuizSet !== undefined
-                          ? classData?.numberOfQuizSet > 1
-                            ? `${classData?.numberOfQuizSet} sets`
-                            : `${classData?.numberOfQuizSet} set`
-                          : "No quiz sets available"}
+                        {classData?.numberOfTestSet !== undefined
+                          ? classData?.numberOfTestSet > 1
+                            ? `${classData?.numberOfTestSet} sets`
+                            : `${classData?.numberOfTestSet} set`
+                          : "No test sets available"}
                       </Text>
                     </Group>
                     <Group>
                       <IconUsersGroup size={20} color="gray" />
                       <Text className="font-semibold text-[14px]">
                         {classData?.numberOfStudent !== undefined
-                          ? classData?.numberOfQuizSet > 1
-                            ? `${classData?.numberOfQuizSet} members`
-                            : `${classData?.numberOfQuizSet} member`
+                          ? classData?.numberOfTestSet > 1
+                            ? `${classData?.numberOfTestSet} members`
+                            : `${classData?.numberOfTestSet} member`
                           : "1 member"}
                       </Text>
                     </Group>

@@ -22,10 +22,10 @@ interface Test {
   // Add other properties as needed
 }
 
-function PopularTest() {
+function UploadedTest() {
   const navigate = useNavigate();
 
-  const [popularTest, setpopularTest] = useState<Test[]>([]);
+  const [uploadedTest, setuploadedTest] = useState<Test[]>([]);
 
   useEffect(() => {
     axios
@@ -37,7 +37,7 @@ function PopularTest() {
                 (a: { view: number }, b: { view: number }) => b.view - a.view
               )
             : [];
-        setpopularTest(sortedList);
+        setuploadedTest(sortedList);
       })
       .catch((error) => {
         // Handle error here
@@ -60,7 +60,7 @@ function PopularTest() {
 
   return (
     <>
-      {popularTest.length > 0 ? (
+      {uploadedTest.length > 0 ? (
         <Carousel
           slideSize={"33.333333%"}
           height={"150px"}
@@ -71,7 +71,7 @@ function PopularTest() {
           dragFree
           classNames={classes}
         >
-          {popularTest.map((test, index) => (
+          {uploadedTest.map((test, index) => (
             <Carousel.Slide key={index}>
               <Card
                 shadow="sm"
@@ -105,10 +105,10 @@ function PopularTest() {
           ))}
         </Carousel>
       ) : (
-        <Text c={"dimmed"}>No popular tests available :(</Text>
+        <Text c={"dimmed"}>No uploaded tests available :(</Text>
       )}
     </>
   );
 }
 
-export default PopularTest;
+export default UploadedTest;

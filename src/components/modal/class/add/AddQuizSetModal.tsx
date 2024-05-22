@@ -8,7 +8,7 @@ const formValidationSchema = z.object({
     .min(1, { message: "Class name is required" })
     .max(50, { message: "Class name is too long" }),
 });
-function AddQuizSetModal({
+function AddTestSetModal({
   opened,
   close,
 }: {
@@ -39,4 +39,4 @@ function AddQuizSetModal({
   );
 }
 
-export default AddQuizSetModal;
+export default AddTestSetModal;

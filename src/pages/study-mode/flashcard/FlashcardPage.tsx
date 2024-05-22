@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import { Params, useLoaderData } from "react-router-dom";
-import { SetDetails } from "../../quiz/set/SetDetails";
+import { SetDetails } from "../../test/set/SetDetails";
 import { Carousel, Embla } from "@mantine/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import {
@@ -20,18 +20,18 @@ import {
   Progress,
   Text,
 } from "@mantine/core";
-import classes from "../../quiz/set/SetDetails.module.css";
+import classes from "../../test/set/SetDetails.module.css";
 import {
   IconArrowsShuffle,
   IconPlayerPause,
   IconPlayerPlay,
 } from "@tabler/icons-react";
-import { QuizInfoContext } from "../../../store/quiz-info-context";
+import { TestInfoContext } from "../../../store/test-info-context";
 import FlashcardSummary from "../../../components/study-mode/flashcard/FlashcardSummary";
 import { StudyModeContext } from "../../../store/study-mode-context";
 
 function FlashcardPage() {
-  const { assignQuizInfo } = useContext(QuizInfoContext);
+  const { assignTestInfo } = useContext(TestInfoContext);
   const { settings } = useContext(StudyModeContext);
   const loaderData = useLoaderData() as SetDetails;
   const questionsData = loaderData?.questions;
@@ -63,9 +63,9 @@ function FlashcardPage() {
   }, [embla]);
 
   useEffect(() => {
-    assignQuizInfo({
-      id: loaderData?.quizId,
-      name: loaderData?.quizName,
+    assignTestInfo({
+      id: loaderData?.testId,
+      name: loaderData?.testName,
       totalQuestion: loaderData?.numberOfQuestions,
     });
   }, [loaderData]);
@@ -228,7 +228,7 @@ async function loader({ params }: { params: Readonly<Params> }) {
   const { id } = params;
   try {
     const res = await axios
-      .get(`http://localhost:8080/api/v1/quiz/get-quiz?id=${id}`)
+      .get(`http://localhost:8080/api/v1/test/get-test?id=${id}`)
       .catch(() => {
         throw new Error("Error while fetching data");
       });

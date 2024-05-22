@@ -1,22 +1,22 @@
 import { useLoaderData } from "react-router-dom";
 import MultipleChoices from "../../../components/study-mode/learn/MultipleChoices";
 
-export interface QuizData {
+export interface TestData {
   answers: any;
   userId: number | null;
   userImg: string | null;
-  quizId: number | null;
+  testId: number | null;
   userName: string | null;
   userFirstName: string | null;
   userLastName: string | null;
   categoryId: number | null;
   categoryName: string | null;
-  quizName: string | null;
+  testName: string | null;
   rate: number | undefined;
   numberOfQuestions: number | null;
   createAt: string | null;
   view: number | null;
-  timeRecentViewQuiz: string | number | null;
+  timeRecentViewTest: string | number | null;
   questions:
     | [
         {
@@ -50,9 +50,9 @@ export const CORRECT_SENTENCES = [
 ];
 
 function LearnPage() {
-  const quizData = useLoaderData() as QuizData;
+  const testData = useLoaderData() as TestData;
 
-  return <>{quizData && <MultipleChoices data={quizData} />}</>;
+  return <>{testData && <MultipleChoices data={testData} />}</>;
 }
 
 export default LearnPage;

@@ -38,7 +38,7 @@ import {
 import { isNotEmpty, useForm } from "@mantine/form";
 import UpdateFolderModal from "../modal/folder/UpdateFolderModal";
 import { UserCredentialsContext } from "../../store/user-credentials-context";
-import AddQuizSetsModal from "../modal/folder/AddQuizSetsModal";
+import AddTestSetsModal from "../modal/folder/AddTestSetsModal";
 import InviteMemberModal from "../modal/folder/InviteMemberModal";
 import { loadingIndicator } from "../../App";
 import { toast } from "react-toastify";
@@ -62,7 +62,7 @@ function Folder({ folderId }: { folderId: number }) {
     inviteModalOpened,
     { open: openInviteModal, close: closeInviteModal },
   ] = useDisclosure(false);
-  const [addQuizSetOpened, { open: openAddQuizSet, close: closeAddQuizSet }] =
+  const [addTestSetOpened, { open: openAddTestSet, close: closeAddTestSet }] =
     useDisclosure(false);
   const form = useForm<{ folderName: string }>({
     initialValues: {
@@ -97,14 +97,14 @@ function Folder({ folderId }: { folderId: number }) {
   return (
     <>
       <InviteMemberModal opened={inviteModalOpened} close={closeInviteModal} />
-      <AddQuizSetsModal opened={addQuizSetOpened} close={closeAddQuizSet} />
+      <AddTestSetsModal opened={addTestSetOpened} close={closeAddTestSet} />
       <UpdateFolderModal opened={opened} close={close} form={form} />
       <Container className="container">
         <Grid gutter={"lg"}>
           <Grid.Col span={12}>
             <Stack gap={"lg"}>
               <Group>
-                <Text c={"dimmed"}>{folder?.numberOfQuizSet} sets</Text>
+                <Text c={"dimmed"}>{folder?.numberOfTestSet} sets</Text>
                 <Divider orientation="vertical" />
                 <Text>created by </Text>
                 <Group gap={0}>
@@ -157,7 +157,7 @@ function Folder({ folderId }: { folderId: number }) {
                             <Menu.Dropdown className="ml-2">
                               <Menu.Item
                                 leftSection={<IconCirclePlus size={14} />}
-                                onClick={openAddQuizSet}
+                                onClick={openAddTestSet}
                               >
                                 Add sets
                               </Menu.Item>
@@ -209,7 +209,7 @@ function Folder({ folderId }: { folderId: number }) {
                   return true;
                 })
                 ?.map((set, index) => (
-                  <Link to={`/quiz/set/${set.quizId}`} key={index}>
+                  <Link to={`/test/set/${set.testId}`} key={index}>
                     <Stack>
                       <Paper
                         key={index}
@@ -235,7 +235,7 @@ function Folder({ folderId }: { folderId: number }) {
                           </Group>
                         </Group>
                         <Text className="font-bold text-xl pt-1">
-                          {set.quizName}
+                          {set.testName}
                         </Text>
                       </Paper>
                     </Stack>

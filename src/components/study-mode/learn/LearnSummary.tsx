@@ -9,9 +9,9 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { QuizData } from "../../../pages/study-mode/learn/LearnPage";
+import { TestData } from "../../../pages/study-mode/learn/LearnPage";
 import { useContext, useEffect } from "react";
-import { QuizInfoContext } from "../../../store/quiz-info-context";
+import { TestInfoContext } from "../../../store/test-info-context";
 import { IconChevronRight } from "@tabler/icons-react";
 
 function LearnSummary({
@@ -19,7 +19,7 @@ function LearnSummary({
   globalQuestionIndex,
   handleNextRound,
 }: {
-  questionsData: QuizData["questions"];
+  questionsData: TestData["questions"];
   globalQuestionIndex: number;
   handleNextRound: () => void;
 }) {
@@ -34,7 +34,7 @@ function LearnSummary({
       window.removeEventListener("keydown", handleKeyDown);
     };
   });
-  const { totalQuestion } = useContext(QuizInfoContext);
+  const { totalQuestion } = useContext(TestInfoContext);
 
   const rows = questionsData
     ? questionsData.map((question, index) => (

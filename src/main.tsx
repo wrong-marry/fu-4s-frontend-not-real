@@ -11,7 +11,7 @@ import { NavigationProgress } from "@mantine/nprogress";
 import "@fontsource-variable/open-sans";
 import UserCredentialsProvider from "./store/user-credentials-context.tsx";
 import StudyModeProvider from "./store/study-mode-context.tsx";
-import QuizInfoProvider from "./store/quiz-info-context.tsx";
+import TestInfoProvider from "./store/test-info-context.tsx";
 import { ModalsProvider } from "@mantine/modals";
 const theme = {
   fontFamily: "Open Sans Variable, Helvetica, sans-serif",
@@ -25,9 +25,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <NavigationProgress />
       <UserCredentialsProvider>
         <StudyModeProvider>
-          <QuizInfoProvider>
+          <TestInfoProvider>
             <App />
-          </QuizInfoProvider>
+          </TestInfoProvider>
         </StudyModeProvider>
       </UserCredentialsProvider>
     </ModalsProvider>

@@ -18,18 +18,18 @@ import {
 } from "@tabler/icons-react";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { QuizInfoContext } from "../../../store/quiz-info-context";
+import { TestInfoContext } from "../../../store/test-info-context";
 import trophy from "../../../assets/emoji/trophy.svg";
 
 function EndScreen() {
-  const { totalQuestion, id } = useContext(QuizInfoContext);
+  const { totalQuestion, id } = useContext(TestInfoContext);
   console.log(id);
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key) {
-        navigate(`/quiz/set/${id}`);
+        navigate(`/test/set/${id}`);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -92,7 +92,7 @@ function EndScreen() {
             variant="light"
             radius={"lg"}
             rightSection={<IconChevronRight size={18} />}
-            onClick={() => navigate(`/quiz/set/${id}`)}
+            onClick={() => navigate(`/test/set/${id}`)}
           >
             Press any key to continue
           </Button>

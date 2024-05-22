@@ -2,35 +2,35 @@ import axios from "axios";
 import { Params, useParams } from "react-router-dom";
 import Folder from "../../components/folder/Folder";
 export interface StudySet {
-  quizId: number;
+  testId: number;
   numberOfQuestion: number;
   author: string;
   authorFirstName: string;
   authorLastName: string;
-  quizName: string;
+  testName: string;
   createdAt: Date;
 }
 export interface FolderData {
   folderId: number;
   folderName: string;
-  numberOfQuizSet: number;
+  numberOfTestSet: number;
   authorName: string;
   authorId: number;
   createdAt: string;
 }
 export interface UserCreatedStudySet {
   userId: number;
-  quizId: number;
+  testId: number;
   userName: string;
   userFirstName: string;
   userLastName: string;
   categoryId: number;
-  quizName: string;
+  testName: string;
   rate: number;
   numberOfQuestions: number;
   createAt: Date;
   view: number;
-  timeRecentViewQuiz: Date;
+  timeRecentViewTest: Date;
 }
 
 interface RequestParams {
@@ -53,7 +53,7 @@ export async function fetchStudySetsData(folderId: number) {
   try {
     const response = await axios
       .get(
-        `http://localhost:8080/api/v1/folder/quiz-belong-folder/folder-id=${folderId}`
+        `http://localhost:8080/api/v1/folder/test-belong-folder/folder-id=${folderId}`
       )
       .catch(() => {
         return null;
@@ -67,7 +67,7 @@ export async function fetchUserCreatedStudySetsData(userId: number) {
   try {
     const response = await axios
       .get(
-        `http://localhost:8080/api/v1/quiz/get-quiz-create-by-user/user-id=${userId}`
+        `http://localhost:8080/api/v1/test/get-test-create-by-user/user-id=${userId}`
       )
       .catch(() => {
         return null;

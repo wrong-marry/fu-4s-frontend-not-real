@@ -8,20 +8,20 @@ import {
   useSubmit,
 } from "react-router-dom";
 import { toast } from "react-toastify";
-import { UserRating } from "../../../pages/quiz/set/SetDetails";
+import { UserRating } from "../../../pages/test/set/SetDetails";
 
 function RatingModal({
   opened,
   close,
   isRated,
-  quizId,
+  testId,
   userId,
   setUserRating,
 }: {
   opened: boolean;
   close: () => void;
   isRated: boolean | undefined;
-  quizId: number;
+  testId: number;
   userId: number;
   setUserRating: React.Dispatch<React.SetStateAction<UserRating>>;
 }) {
@@ -67,7 +67,7 @@ function RatingModal({
                 ...form.values,
                 action: action,
                 userId: userId,
-                quizId: quizId,
+                testId: testId,
               },
               { method: method }
             );

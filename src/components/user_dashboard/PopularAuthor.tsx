@@ -8,14 +8,14 @@ import "@tabler/icons-react";
 interface User {
   userName: string;
   role: string;
-  numberOfQuizSet: number;
+  numberOfTestSet: number;
   classes: number;
   avatar: string;
 }
 
-function PopularAuthor() {
-  const [popularAuthor, setpopularAuthor] = useState<User[]>([]);
-  console.log(popularAuthor);
+function UploadedAuthor() {
+  const [uploadedAuthor, setuploadedAuthor] = useState<User[]>([]);
+  console.log(uploadedAuthor);
   useEffect(() => {
     axios
       .get("http://localhost:8080/api/v1/admin/users-dashboard")
@@ -23,14 +23,14 @@ function PopularAuthor() {
         const sortedAuthors = res.data.sort(
           (a: { view: number }, b: { view: number }) => b.view - a.view
         );
-        setpopularAuthor(sortedAuthors);
+        setuploadedAuthor(sortedAuthors);
       });
   }, []);
 
   return (
     <>
-      {popularAuthor.length === 0 ? (
-        <Text c={"dimmed"}>No popular authors available :(</Text>
+      {uploadedAuthor.length === 0 ? (
+        <Text c={"dimmed"}>No uploaded authors available :(</Text>
       ) : (
         <Carousel
           slideSize={"33.333333%"}
@@ -42,7 +42,7 @@ function PopularAuthor() {
           dragFree
           classNames={classes}
         >
-          {popularAuthor.map((user, index) => (
+          {uploadedAuthor.map((user, index) => (
             <Carousel.Slide key={index}>
               <Card
                 shadow="sm"
@@ -75,4 +75,4 @@ function PopularAuthor() {
   );
 }
 
-export default PopularAuthor;
+export default UploadedAuthor;

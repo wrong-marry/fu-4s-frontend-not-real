@@ -18,12 +18,12 @@ interface ClassroomResponseData {
   className: string;
   teacherName: string;
   numberOfStudent: number;
-  numberOfQuizSet: number;
+  numberOfTestSet: number;
   slugCode: string;
 }
-interface QuizResponseData {
-  quizId: number;
-  quizName: string;
+interface TestResponseData {
+  testId: number;
+  testName: string;
   author: string;
   authorFirstName: string;
   authorLastName: string;
@@ -33,14 +33,14 @@ interface QuizResponseData {
 interface FolderResponseData {
   folderId: number;
   folderName: string;
-  numberOfQuizSet: number;
+  numberOfTestSet: number;
   authorName: string;
   createdAt: string;
 }
 
 interface ResponseData {
   classrooms: ClassroomResponseData[];
-  quizzes: QuizResponseData[];
+  testzes: TestResponseData[];
   folders: FolderResponseData[];
 }
 
@@ -74,7 +74,7 @@ const GeneralSearchBar = () => {
     const data = await fetchSearchResultData(form.values.keywords);
     const limitedData = {
       classrooms: data?.classrooms?.slice(0, 10) || [],
-      quizzes: data?.quizzes?.slice(0, 10) || [],
+      testzes: data?.testzes?.slice(0, 10) || [],
       folders: data?.folders?.slice(0, 10) || [],
     };
     setResData(limitedData);
@@ -105,11 +105,11 @@ const GeneralSearchBar = () => {
     </Combobox.Option>
   ));
 
-  const quizzesData = resData?.quizzes?.map((item) => (
-    <Combobox.Option value={item.quizName} key={item.quizId}>
-      <Link to={`/quiz/set/${item.quizId}`}>
+  const testzesData = resData?.testzes?.map((item) => (
+    <Combobox.Option value={item.testName} key={item.testId}>
+      <Link to={`/test/set/${item.testId}`}>
         <Group>
-          <Text>{item.quizName}</Text>
+          <Text>{item.testName}</Text>
           <Badge
             leftSection={<IconUser size={14} stroke={1.5} />}
             color="orange"
@@ -147,7 +147,7 @@ const GeneralSearchBar = () => {
       >
         <Combobox.Target>
           <TextInput
-            placeholder="Search for quizzes, classes, etc."
+            placeholder="Search for testzes, classes, etc."
             onBlur={() => combobox.closeDropdown()}
             rightSection={
               form?.values?.keywords !== "" && (
@@ -176,10 +176,10 @@ const GeneralSearchBar = () => {
               )}
             </Combobox.Options>
           </Combobox.Group>
-          <Combobox.Group label="Quizzes">
+          <Combobox.Group label="Testzes">
             <Combobox.Options>
-              {resData?.quizzes.length !== 0 ? (
-                quizzesData
+              {resData?.testzes.length !== 0 ? (
+                testzesData
               ) : (
                 <Combobox.Empty>Nothing found</Combobox.Empty>
               )}

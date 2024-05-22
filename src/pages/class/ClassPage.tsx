@@ -144,7 +144,7 @@ export async function fetchCommentsData(questionId: number) {
     throw new Error("Error fetching questions comments");
   }
 }
-export async function addQuizToClassApi(classId: number, testId: number) {
+export async function addTestToClassApi(classId: number, testId: number) {
   try {
     const response = await axios.post(
       `http://localhost:8080/api/v1/classroom/add-test/${classId}/test/${testId}`
@@ -154,7 +154,7 @@ export async function addQuizToClassApi(classId: number, testId: number) {
     throw new Error("Error fetching user created study sets");
   }
 }
-export const removeQuizFromClassApi = async (
+export const removeTestFromClassApi = async (
   classId: number,
   testId: number
 ) => {
