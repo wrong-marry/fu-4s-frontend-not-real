@@ -1,23 +1,23 @@
 import { Params } from "react-router-dom";
-import UpdateQuizForm from "../../../components/quiz/UpdateQuizForm";
+import UpdateTestForm from "../../../components/test/UpdateTestForm";
 import axios from "axios";
-import { getCategoriesList } from "../create_form/CreateQuizPage";
+import { getCategoriesList } from "../create_form/CreateTestPage";
 
-const UpdateQuizSet = () => {
-  return <UpdateQuizForm />;
+const UpdateTestSet = () => {
+  return <UpdateTestForm />;
 };
 
 const loader = async ({ params }: { params: Readonly<Params> }) => {
   const { id } = params;
   try {
     const res = await axios
-      .get(`http://localhost:8080/api/v1/quiz/get-quiz?id=${id}`)
+      .get(`http://localhost:8080/api/v1/test/get-test?id=${id}`)
       .catch(() => {
         throw new Error("Error while fetching data");
       });
     const res2 = await getCategoriesList();
     return {
-      quiz: res.data,
+      test: res.data,
       categories: res2,
     };
   } catch (error) {
@@ -33,9 +33,9 @@ const loader = async ({ params }: { params: Readonly<Params> }) => {
 const action = async ({ request }: { request: Request }) => {
   try {
     const data = Object.fromEntries(await request.formData());
-    const url = `http://localhost:8080/api/v1/quiz/update-quiz`;
+    const url = `http://localhost:8080/api/v1/test/update-test`;
     const payload = {
-      quizId: Number(data?.quizId),
+      testId: Number(data?.testId),
       categoryId: Number(data?.categoryId),
       userId: Number(data?.userId),
       title: data?.title,
@@ -44,7 +44,7 @@ const action = async ({ request }: { request: Request }) => {
     };
     console.log(payload);
     await axios.put(url, payload).catch(() => {
-      throw new Error("Cannot update quiz");
+      throw new Error("Cannot update test");
     });
     return {
       error: false,
@@ -59,5 +59,5 @@ const action = async ({ request }: { request: Request }) => {
     }
   }
 };
-export { loader as UpdateQuizSetLoader, action as UpdateQuizSetAction };
-export default UpdateQuizSet;
+export { loader as UpdateTestSetLoader, action as UpdateTestSetAction };
+export default UpdateTestSet;

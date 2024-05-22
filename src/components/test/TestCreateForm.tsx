@@ -29,9 +29,9 @@ import {
 } from "@mantine/form";
 import {
   Question,
-  QuizForm,
+  TestForm,
   getCategoriesList,
-} from "../../pages/quiz/create_form/CreateQuizPage";
+} from "../../pages/test/create_form/CreateTestPage";
 import { useContext, useEffect, useRef } from "react";
 import { UserCredentialsContext } from "../../store/user-credentials-context";
 import { toast } from "react-toastify";
@@ -39,7 +39,7 @@ import { toast } from "react-toastify";
 interface QuestionBoxProps {
   question: Question;
   index: number;
-  form: UseFormReturnType<QuizForm>;
+  form: UseFormReturnType<TestForm>;
 }
 
 const QuestionBox: React.FC<QuestionBoxProps> = ({ question, index, form }) => {
@@ -115,7 +115,7 @@ const QuestionBox: React.FC<QuestionBoxProps> = ({ question, index, form }) => {
   );
 };
 
-const QuizCreateForm: React.FC = () => {
+const TestCreateForm: React.FC = () => {
   const { info } = useContext(UserCredentialsContext);
   const categoriesData =
     useRef<[{ categoryId: number; categoryName: string }]>();
@@ -127,7 +127,7 @@ const QuizCreateForm: React.FC = () => {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
-  const form = useForm<QuizForm>({
+  const form = useForm<TestForm>({
     initialValues: {
       title: "",
       categoryName: "",
@@ -325,4 +325,4 @@ const QuizCreateForm: React.FC = () => {
   );
 };
 
-export default QuizCreateForm;
+export default TestCreateForm;

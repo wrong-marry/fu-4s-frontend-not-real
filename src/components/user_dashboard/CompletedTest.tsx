@@ -4,37 +4,37 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import classes from "./Carousel.module.css";
 import { useNavigate } from "react-router-dom";
-function RecentQuiz() {
-  interface Quiz {
-    quizId: string;
-    quizName: string;
+function RecentTest() {
+  interface Test {
+    testId: string;
+    testName: string;
     numberOfQuestions: number;
     userName: string;
     view: number;
-    timeRecentViewQuiz: string; // Change the type to string
+    timeRecentViewTest: string; // Change the type to string
     // Add other properties as needed
   }
 
-  const [recentQuiz, setrecentQuiz] = useState<Quiz[]>([]);
+  const [recentTest, setrecentTest] = useState<Test[]>([]);
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/v1/quiz/get-all-quiz")
+      .get("http://localhost:8080/api/v1/test/get-all-test")
       .then((res) => {
         const sortedList =
           res && res.data
             ? res.data.sort(
                 (
-                  a: { timeRecentViewQuiz: string | number | Date },
-                  b: { timeRecentViewQuiz: string | number | Date }
+                  a: { timeRecentViewTest: string | number | Date },
+                  b: { timeRecentViewTest: string | number | Date }
                 ) => {
-                  const timeA = new Date(a.timeRecentViewQuiz).getTime();
-                  const timeB = new Date(b.timeRecentViewQuiz).getTime();
+                  const timeA = new Date(a.timeRecentViewTest).getTime();
+                  const timeB = new Date(b.timeRecentViewTest).getTime();
                   return timeB - timeA; // Sort in descending order for most recent views first
                 }
               )
             : [];
-        setrecentQuiz(sortedList);
+        setrecentTest(sortedList);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -42,22 +42,22 @@ function RecentQuiz() {
       });
   }, []);
 
-  const handleClickUpdateTime = async (quizId: any) => {
+  const handleClickUpdateTime = async (testId: any) => {
     await axios.put(
-      `http://localhost:8080/api/v1/quiz/update-time-quiz/${quizId}`
+      `http://localhost:8080/api/v1/test/update-time-test/${testId}`
     );
     alert("Update successful!");
   };
 
-  const handleClickIncreaseView = async (quizId: any) => {
+  const handleClickIncreaseView = async (testId: any) => {
     await axios.put(
-      `http://localhost:8080/api/v1/quiz/increase-view?quiz-id=${quizId}`
+      `http://localhost:8080/api/v1/test/increase-view?test-id=${testId}`
     );
   };
   return (
     <>
-      {recentQuiz.length === 0 ? (
-        <Text c={"dimmed"}>No recent quizzes available :(</Text>
+      {recentTest.length === 0 ? (
+        <Text c={"dimmed"}>No recent tests available :(</Text>
       ) : (
         <Carousel
           slideSize={"33.333333%"}
@@ -69,7 +69,7 @@ function RecentQuiz() {
           dragFree
           classNames={classes}
         >
-          {recentQuiz?.map((quiz, index) => (
+          {recentTest?.map((test, index) => (
             <Carousel.Slide key={index}>
               <Card
                 shadow="sm"
@@ -81,21 +81,21 @@ function RecentQuiz() {
               >
                 <Stack
                   onClick={() => {
-                    handleClickUpdateTime(quiz.quizId);
-                    handleClickIncreaseView(quiz.quizId);
-                    navigate(`/quiz/set/${quiz.quizId}`);
+                    handleClickUpdateTime(test.testId);
+                    handleClickIncreaseView(test.testId);
+                    navigate(`/test/set/${test.testId}`);
                   }}
                   className="cursor-pointer justify-between h-full"
                 >
                   <Stack gap={2}>
-                    <Text fw={500}>{quiz.quizName}</Text>
+                    <Text fw={500}>{test.testName}</Text>
                     <Badge color="indigo">
-                      {quiz.numberOfQuestions} Question
+                      {test.numberOfQuestions} Question
                     </Badge>
                   </Stack>
                   <Group gap={"xs"}>
                     <Avatar variant="filled" radius="xl" size="sm" />
-                    <Text size="sm">{quiz.userName}</Text>
+                    <Text size="sm">{test.userName}</Text>
                   </Group>
                 </Stack>
               </Card>
@@ -107,4 +107,4 @@ function RecentQuiz() {
   );
 }
 
-export default RecentQuiz;
+export default RecentTest;

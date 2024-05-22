@@ -19,49 +19,49 @@ import {
   fetchMembersData,
   Member,
   fetchUserCreatedStudySetsData,
-  addQuizToClassApi,
-  removeQuizFromClassApi,
+  addTestToClassApi,
+  removeTestFromClassApi,
   Questions,
   fetchQuestionsData,
 } from "../../pages/class/ClassPage";
 
 import { Link, useNavigate } from "react-router-dom";
-import QuizQuestionModal from "./QuizQuestionModal";
+import TestQuestionModal from "./TestQuestionModal";
 
-function AddQuizSetsModal({
+function AddTestSetsModal({
   classId,
   addSetsModalOpened,
   setAddSetsModalOpened,
   studyUserCreatedSets,
   fetchStudySets,
   setLoading
-  commonQuizIds,
+  commonTestIds,
 }) {
-  async function addQuizToClass(classId: number, quizId: number) {
+  async function addTestToClass(classId: number, testId: number) {
     setLoading(true);
     try {
-      // Make API call to add quiz to class
-      await addQuizToClassApi(classId, quizId);
+      // Make API call to add test to class
+      await addTestToClassApi(classId, testId);
 
       // After successful API call, refresh studySets data
       await fetchStudySets(classId);
     } catch (error) {
-      console.error("Error adding quiz to class:", error);
+      console.error("Error adding test to class:", error);
     } finally {
       setLoading(false);
     }
   }
 
-  async function removeQuizFromClass(classId: number, quizId: number) {
+  async function removeTestFromClass(classId: number, testId: number) {
     setLoading(true);
     try {
-      // Make API call to remove quiz from class
-      await removeQuizFromClassApi(classId, quizId);
+      // Make API call to remove test from class
+      await removeTestFromClassApi(classId, testId);
 
       // After successful API call, refresh studySets data
       await fetchStudySets(classId);
     } catch (error) {
-      console.error("Error removing quiz from class:", error);
+      console.error("Error removing test from class:", error);
     } finally {
       setLoading(false);
     }
@@ -78,7 +78,7 @@ function AddQuizSetsModal({
         <div className="p-4">
           <Modal.Header>
             <Modal.Title className="font-bold text-size text-2xl">
-              Add quiz sets
+              Add test sets
             </Modal.Title>
             <Modal.CloseButton />
           </Modal.Header>
@@ -87,7 +87,7 @@ function AddQuizSetsModal({
         <Modal.Body>
           <Stack p={"xl"}>
             <Button variant="subtle" size="sm" leftSection={<IconPlus />}>
-              <Link to="/create-quiz">Create new sets</Link>
+              <Link to="/create-test">Create new sets</Link>
             </Button>
             <div>
               <Select
@@ -101,7 +101,7 @@ function AddQuizSetsModal({
             </div>
             {!isLoading ? (
               studyUserCreatedSets.map((set) => (
-                <Stack key={set.quizId}>
+                <Stack key={set.testId}>
                   <Paper
                     shadow="lg"
                     radius="md"
@@ -110,36 +110,36 @@ function AddQuizSetsModal({
                     className="py-4"
                   >
                     <Group className="justify-between">
-                      <Text className="font-bold text-lg">{set.quizName}</Text>
-                      {commonQuizIds.includes(set.quizId) ? (
-                        // If the quiz ID exists, render the minus button
+                      <Text className="font-bold text-lg">{set.testName}</Text>
+                      {commonTestIds.includes(set.testId) ? (
+                        // If the test ID exists, render the minus button
                         <Button
                           variant="default"
                           size="sm"
                           radius="md"
                           onClick={() => {
-                            removeQuizFromClass(classId, set.quizId);
-                            const updatedCommonQuizIds = commonQuizIds.filter(
-                              (id) => id !== set.quizId
+                            removeTestFromClass(classId, set.testId);
+                            const updatedCommonTestIds = commonTestIds.filter(
+                              (id) => id !== set.testId
                             );
-                            setCommonQuizIds(updatedCommonQuizIds);
+                            setCommonTestIds(updatedCommonTestIds);
                           }}
                         >
                           <IconMinus size={12} />
                         </Button>
                       ) : (
-                        // If the quiz ID does not exist, render the plus button
+                        // If the test ID does not exist, render the plus button
                         <Button
                           variant="default"
                           size="sm"
                           radius="md"
                           onClick={() => {
-                            addQuizToClass(classId, set.quizId);
-                            const updatedCommonQuizIds = [
-                              ...commonQuizIds,
-                              set.quizId,
+                            addTestToClass(classId, set.testId);
+                            const updatedCommonTestIds = [
+                              ...commonTestIds,
+                              set.testId,
                             ];
-                            setCommonQuizIds(updatedCommonQuizIds);
+                            setCommonTestIds(updatedCommonTestIds);
                           }}
                         >
                           <IconPlus size={12} />
@@ -159,4 +159,4 @@ function AddQuizSetsModal({
   );
 }
 
-export default AddQuizSetsModal;
+export default AddTestSetsModal;

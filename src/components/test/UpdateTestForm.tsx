@@ -34,17 +34,17 @@ import {
 } from "@mantine/form";
 import {
   Question,
-  QuizForm,
-} from "../../pages/quiz/create_form/CreateQuizPage";
+  TestForm,
+} from "../../pages/test/create_form/CreateTestPage";
 import { useContext, useEffect } from "react";
 import { UserCredentialsContext } from "../../store/user-credentials-context";
 import { toast } from "react-toastify";
-import { SetDetails } from "../../pages/quiz/set/SetDetails";
+import { SetDetails } from "../../pages/test/set/SetDetails";
 
 interface QuestionBoxProps {
   question: Question;
   index: number;
-  form: UseFormReturnType<QuizForm>;
+  form: UseFormReturnType<TestForm>;
 }
 
 const QuestionBox: React.FC<QuestionBoxProps> = ({ question, index, form }) => {
@@ -120,10 +120,10 @@ const QuestionBox: React.FC<QuestionBoxProps> = ({ question, index, form }) => {
   );
 };
 
-const UpdateQuizForm: React.FC = () => {
+const UpdateTestForm: React.FC = () => {
   const { info } = useContext(UserCredentialsContext);
   const loaderData = useLoaderData() as {
-    quiz: SetDetails;
+    test: SetDetails;
     categories: { categoryId: number; categoryName: string }[];
   };
   const fetcher = useFetcher();
@@ -140,8 +140,8 @@ const UpdateQuizForm: React.FC = () => {
   }, [data]);
 
   useEffect(() => {
-    if (info?.userId !== loaderData?.quiz.userId) {
-      navigate(`/quiz/set/${loaderData?.quiz.quizId}`);
+    if (info?.userId !== loaderData?.test.userId) {
+      navigate(`/test/set/${loaderData?.test.testId}`);
     }
   }, []);
 
@@ -149,16 +149,16 @@ const UpdateQuizForm: React.FC = () => {
   loaderData?.categories.forEach((category) => {
     processedCategories.push(category.categoryName);
   });
-  const form = useForm<QuizForm>({
+  const form = useForm<TestForm>({
     initialValues: {
       title: "",
       categoryName: "",
       description: "",
       questions: [
         {
-          quizQuestionId: 0,
+          testQuestionId: 0,
           question: "",
-          answers: [{ quizAnswerId: 0, content: "", isCorrect: false }],
+          answers: [{ testAnswerId: 0, content: "", isCorrect: false }],
         },
       ],
     },
@@ -183,7 +183,7 @@ const UpdateQuizForm: React.FC = () => {
           content: answer.content.trim(),
         })),
       })),
-      quizId: loaderData?.quiz?.quizId as number,
+      testId: loaderData?.test?.testId as number,
       userId: info?.userId as number,
       categoryId: (() => {
         const category = loaderData?.categories.find(
@@ -198,14 +198,14 @@ const UpdateQuizForm: React.FC = () => {
 
   useEffect(() => {
     form.initialize({
-      title: loaderData?.quiz?.quizName as string,
-      categoryName: loaderData?.quiz?.categoryName as string,
-      description: (loaderData?.quiz?.description as string) || "",
-      questions: loaderData?.quiz?.questions?.map((question) => ({
-        quizQuestionId: question.questionId,
+      title: loaderData?.test?.testName as string,
+      categoryName: loaderData?.test?.categoryName as string,
+      description: (loaderData?.test?.description as string) || "",
+      questions: loaderData?.test?.questions?.map((question) => ({
+        testQuestionId: question.questionId,
         question: question.questionContent as string,
         answers: question.answers?.map((answer) => ({
-          quizAnswerId: answer.answerId,
+          testAnswerId: answer.answerId,
           content: answer.content,
           isCorrect: answer.isCorrect,
         })),
@@ -369,4 +369,4 @@ const UpdateQuizForm: React.FC = () => {
     </Container>
   );
 };
-export default UpdateQuizForm;
+export default UpdateTestForm;
