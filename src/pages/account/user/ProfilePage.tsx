@@ -4,15 +4,10 @@ import { useParams, useRouteLoaderData } from "react-router-dom";
 import { useContext } from "react";
 import { UserCredentialsContext } from "../../../store/user-credentials-context";
 export interface UserData {
-  userId: number;
-  userName: string;
+  username: string;
   firstName: string;
   lastName: string;
   email: string;
-  telephone: string;
-  role: string;
-  banned: boolean;
-  premium: boolean;
 }
 
 export interface StudySet {
@@ -47,10 +42,10 @@ export interface Folder {
   createdAt: string;
 }
 
-export async function fetchFolderData(userId: number) {
+export async function fetchFolderData(username: string) {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/v1/folder/created/user-id=${userId}`
+      `http://localhost:8080/api/v1/folder/created/username=${username}`
     );
     return response.data.entityResponses;
   } catch (error) {
@@ -58,10 +53,10 @@ export async function fetchFolderData(userId: number) {
   }
 }
 
-export async function fetchStudySetsData(userId: number) {
+export async function fetchStudySetsData(username: string) {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/v1/test/learned/user-id=${userId}`
+      `http://localhost:8080/api/v1/test/learned/user-id=${username}`
     );
     return response.data;
   } catch (error) {
@@ -69,10 +64,10 @@ export async function fetchStudySetsData(userId: number) {
   }
 }
 
-export async function fetchClassesData(userId: number) {
+export async function fetchClassesData(username: string) {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/v1/classroom/learned/user-id=${userId}`
+      `http://localhost:8080/api/v1/classroom/learned/user-id=${username}`
     );
     return response.data;
   } catch (error) {

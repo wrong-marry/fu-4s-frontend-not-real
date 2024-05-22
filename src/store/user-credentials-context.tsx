@@ -2,17 +2,10 @@ import { createContext, useReducer } from "react";
 
 export interface UserCredentials {
   info: {
-    userId: number;
-    userName: string;
+    username: string;
     firstName: string;
     lastName: string;
     email: string;
-    telephone: string;
-    role: string;
-    premium: boolean;
-    banned: boolean;
-    avatar: string;
-    accountType: string;
   } | null;
   loaded: boolean;
 }
@@ -25,17 +18,10 @@ interface UserCredentialsContextProps extends UserCredentials {
 export const UserCredentialsContext =
   createContext<UserCredentialsContextProps>({
     info: {
-      userId: 0,
-      userName: "",
+      username: "",
       firstName: "",
       lastName: "",
-      email: "",
-      telephone: "",
-      role: "",
-      premium: false,
-      banned: false,
-      avatar: "",
-      accountType: "",
+      email: ""
     },
     loaded: false,
     assignUserCredentials: () => {},

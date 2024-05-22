@@ -27,13 +27,16 @@ import {
 } from "@tabler/icons-react";
 
 import { DarkModeSwitch } from "react-toggle-dark-mode";
-import { useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { UserCredentialsContext } from "../../store/user-credentials-context";
 import { useDisclosure } from "@mantine/hooks";
-import FolderModal from "../modal/navbar/create/FolderModal";
-import ClassModal from "../modal/navbar/create/ClassModal";
-import GeneralSearchBar from "./search/GeneralSearchBar";
+// import FolderModal from "../modal/navbar/create/FolderModal";
+// import ClassModal from "../modal/navbar/create/ClassModal";
+// import GeneralSearchBar from "./search/GeneralSearchBar";
 import { toast } from "react-toastify";
+import GeneralSearchBar from "./search/GeneralSearchBar.tsx";
+import FolderModal from "../modal/navbar/create/FolderModal.tsx";
+import ClassModal from "../modal/navbar/create/ClassModal.tsx";
 
 const userBtn = (data: LoaderData, submit: any, handleLogout: () => void) => {
   return (
@@ -41,13 +44,13 @@ const userBtn = (data: LoaderData, submit: any, handleLogout: () => void) => {
       <Menu shadow="md" width={200}>
         <Menu.Target>
           <Group className="cursor-pointer border-none">
-            <Avatar
-              variant="filled"
-              radius="xl"
-              color="grape"
-              className="cursor-pointer"
-              src={data?.avatar}
-            />
+            {/*<Avatar*/}
+            {/*  variant="filled"*/}
+            {/*  radius="xl"*/}
+            {/*  color="grape"*/}
+            {/*  className="cursor-pointer"*/}
+            {/*  src={data?.avatar}*/}
+            {/*/>*/}
             <Text className="text-sm font-semibold">
               {data ? data.firstName + " " + data.lastName : "Guest"}
             </Text>
@@ -123,17 +126,10 @@ const guestBtn = (mode: string) => {
 
 interface LoaderData {
   error?: boolean;
-  userId: number;
-  userName?: string;
+  username?: string;
   firstName?: string;
   lastName?: string;
   email: string;
-  telephone: string;
-  role: string;
-  premium: boolean;
-  banned: boolean;
-  accountType: string;
-  avatar: string;
 }
 
 function Navbar() {
@@ -154,12 +150,12 @@ function Navbar() {
     }
   }, [data]);
 
-  useEffect(() => {
-    if (data?.banned) {
-      submit(null, { method: "post", action: "/logout" });
-      toast.error("Your account has been banned");
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data?.banned) {
+  //     submit(null, { method: "post", action: "/logout" });
+  //     toast.error("Your account has been banned");
+  //   }
+  // }, [data]);
   const submit = useSubmit();
   const { colorScheme, setColorScheme } = useMantineColorScheme({
     keepTransitions: true,

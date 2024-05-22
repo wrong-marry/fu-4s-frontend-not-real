@@ -29,7 +29,7 @@ function UploadedTest() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/v1/test/get-all-test")
+      .get("http://localhost:8080/api/v1/getUploadedTest")
       .then((res) => {
         const sortedList =
           res && res.data

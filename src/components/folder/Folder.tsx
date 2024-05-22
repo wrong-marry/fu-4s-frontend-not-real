@@ -57,7 +57,7 @@ function Folder({ folderId }: { folderId: number }) {
   const iconSearch = <IconSearch style={{ width: rem(16), height: rem(16) }} />;
   const [studySetsFilter, setStudySetsFilter] = useState<string>("Latest");
   const [opened, { open, close }] = useDisclosure(false);
-  const isOwner = folder?.authorId === info?.userId;
+  const isOwner = folder?.authorId === info?.username;
   const [
     inviteModalOpened,
     { open: openInviteModal, close: closeInviteModal },
@@ -74,7 +74,7 @@ function Folder({ folderId }: { folderId: number }) {
     transformValues: (values) => ({
       folderName: values.folderName,
       folderId: folderId,
-      userId: info?.userId,
+      userId: info?.username,
     }),
   });
 

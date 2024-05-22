@@ -3,12 +3,12 @@ import { getUser } from "../user/user";
 
 export function getAuthCredentials() {
   const authToken = getAuthToken();
-  const userId = getAuthUserId();
+  const username = getAuthUsername();
 
-  if (!authToken || !userId) {
+  if (!authToken || !username) {
     return null;
   }
-  return getUser(userId);
+  return getUser(username);
 }
 
 export async function checkAuth() {
@@ -28,7 +28,7 @@ export async function preventAuth() {
 
 export function isLoggedIn() {
   const authToken = getAuthToken();
-  const userId = getAuthUserId();
+  const userId = getAuthUsername();
   if (!authToken || !userId) {
     return false;
   }
@@ -39,8 +39,8 @@ export function getAuthToken() {
   return localStorage.getItem("AT");
 }
 
-export function getAuthUserId() {
-  return localStorage.getItem("uid");
+export function getAuthUsername() {
+  return localStorage.getItem("username");
 }
 
 export function assignLoginPayload(formFieldData: any) {
@@ -52,8 +52,8 @@ export function assignLoginPayload(formFieldData: any) {
 
 export function assignRegisterPayload(formFieldData: any) {
   return {
-    firstName: formFieldData.firstname,
-    lastName: formFieldData.lastname,
+    firstName: formFieldData.firstName,
+    lastName: formFieldData.lastName,
     email: formFieldData.email,
     password: formFieldData.password,
     username: formFieldData.username

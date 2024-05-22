@@ -60,9 +60,9 @@ export default function Profile({
 
   useEffect(() => {
     if (userData) {
-      fetchStudySets(userData.userId);
-      fetchClasses(userData.userId);
-      fetchFolders(userData.userId);
+      fetchStudySets(userData.username);
+      fetchClasses(userData.username);
+      fetchFolders(userData.username);
     }
   }, [userData]);
 
@@ -74,10 +74,10 @@ export default function Profile({
     }
   }
 
-  async function fetchStudySets(userId: number) {
+  async function fetchStudySets(username: string) {
     setLoading(true);
     try {
-      const sets = await fetchStudySetsData(userId);
+      const sets = await fetchStudySetsData(username);
       setStudySets(sets);
     } catch (error) {
       console.error("Error fetching study sets:", error);
@@ -86,10 +86,10 @@ export default function Profile({
     }
   }
 
-  async function fetchClasses(userId: number) {
+  async function fetchClasses(username: string) {
     setLoading(true);
     try {
-      const classesData = await fetchClassesData(userId);
+      const classesData = await fetchClassesData(username);
       setClasses(classesData);
     } catch (error) {
       console.error("Error fetching classes:", error);
@@ -98,10 +98,10 @@ export default function Profile({
     }
   }
 
-  async function fetchFolders(userId: number) {
+  async function fetchFolders(username: string) {
     setLoading(true);
     try {
-      const foldersData = await fetchFolderData(userId);
+      const foldersData = await fetchFolderData(username);
       setFolders(foldersData);
     } catch (error) {
       console.error("Error fetching folders:", error);
@@ -120,7 +120,7 @@ export default function Profile({
 
         <Stack gap={0}>
           <Text size="lg" className="font-bold">
-            {userData.userName}
+            {userData.username}
           </Text>
           <Text c={"dimmed"} className="capitalize" size="sm">
             {userData?.firstName + " " + userData?.lastName}

@@ -8,13 +8,9 @@ import {
   Group,
   PaperProps,
   Button,
-  Divider,
-  Checkbox,
   Stack,
   Container,
 } from "@mantine/core";
-import { GoogleButton } from "./GoogleButton";
-import { TwitterButton } from "./TwitterButton";
 import {
   Form,
   Link,
@@ -80,8 +76,8 @@ export default function AuthForm(props: PaperProps) {
 
   const assignRegisterPayload = (formFieldData: any) => {
     return {
-      firstname: formFieldData.firstname,
-      lastname: formFieldData.lastname,
+      firstName: formFieldData.firstName,
+      lastName: formFieldData.lastName,
       email: formFieldData.email,
       password: formFieldData.password,
       username: formFieldData.username,
@@ -149,7 +145,7 @@ export default function AuthForm(props: PaperProps) {
                       placeholder="Your first name"
                       radius="md"
                       name="firstName"
-                      {...form.getInputProps("firstname")}
+                      {...form.getInputProps("firstName")}
                     />
                     <TextInput
                       required
@@ -157,7 +153,7 @@ export default function AuthForm(props: PaperProps) {
                       placeholder="Your last name"
                       radius="md"
                       name="lastname"
-                      {...form.getInputProps("lastname")}
+                      {...form.getInputProps("lastName")}
                     />
                   </Group>
 

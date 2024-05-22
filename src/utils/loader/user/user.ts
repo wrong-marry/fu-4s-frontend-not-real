@@ -1,9 +1,13 @@
 import axios from "axios";
 
-export async function getUser(uid: string) {
+export async function getUser(username: string) {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/v1/users/profile/user-id=${uid}`
+      `http://localhost:8080/api/v1/users/profile/${username}`,{
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("AT"),
+          },
+        }
     );
     return response.data;
   } catch (error) {

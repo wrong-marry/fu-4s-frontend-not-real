@@ -176,7 +176,7 @@ const GeneralSearchBar = () => {
               )}
             </Combobox.Options>
           </Combobox.Group>
-          <Combobox.Group label="Testzes">
+          <Combobox.Group label="Tests">
             <Combobox.Options>
               {resData?.testzes.length !== 0 ? (
                 testzesData

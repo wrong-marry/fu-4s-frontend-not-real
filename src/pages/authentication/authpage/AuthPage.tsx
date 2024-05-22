@@ -31,7 +31,7 @@ export async function action({ request }: { request: any }) {
       api = "register";
     }
 
-    const apiUrl = `http://localhost:8080/auth/${api}`;
+    const apiUrl = `http://localhost:8080/api/v1/auth/${api}`;
     const fetchedData = await axios
       .post(apiUrl, payload)
       .then((res) => res.data)
@@ -73,12 +73,12 @@ export async function action({ request }: { request: any }) {
         };
       } else {
         sessionStorage.setItem("RT", fetchedData.refreshToken);
-        localStorage.setItem("AT", fetchedData.accessToken);
-        localStorage.setItem("uid", fetchedData.userId);
+        localStorage.setItem("AT", fetchedData.token);
+        localStorage.setItem("username", fetchedData.username);
         return redirect("/home");
       }
     } else if (mode === "register") {
-      if (fetchedData?.accessToken) {
+      if (fetchedData?.token) {
         toast.success("Registered successfully, please login");
         return redirect("/auth?mode=login");
       } else {

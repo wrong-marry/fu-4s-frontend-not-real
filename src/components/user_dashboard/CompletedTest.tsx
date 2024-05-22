@@ -15,11 +15,12 @@ function RecentTest() {
     // Add other properties as needed
   }
 
-  const [recentTest, setrecentTest] = useState<Test[]>([]);
+  const [recentTest, setRecentTest] = useState<Test[]>([]);
   const navigate = useNavigate();
+  const username = localStorage.getItem("username");
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/v1/test/get-all-test")
+      .get(`http://localhost:8080/api/v1/getCompletedTest/${username}`)
       .then((res) => {
         const sortedList =
           res && res.data
@@ -34,7 +35,7 @@ function RecentTest() {
                 }
               )
             : [];
-        setrecentTest(sortedList);
+        setRecentTest(sortedList);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);

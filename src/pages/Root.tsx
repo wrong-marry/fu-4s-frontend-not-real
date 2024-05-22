@@ -9,7 +9,7 @@ interface FolderRequest {
 }
 interface ActionRequest extends FolderRequest {
   action: string;
-  userId: number;
+  username: string;
 }
 
 function Root() {
@@ -43,7 +43,7 @@ export async function action({ request }: { request: Request }) {
     const action = data.action;
     const payload = {
       folderName: data.folderTitle,
-      userId: Number(localStorage.getItem("uid")),
+      username: localStorage.getItem("username"),
     };
 
     if (action === "create-folder") {

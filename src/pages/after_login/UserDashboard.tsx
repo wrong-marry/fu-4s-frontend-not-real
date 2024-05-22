@@ -1,7 +1,7 @@
 import { Container, Stack, Title } from "@mantine/core";
-import RecentTest from "../../components/user_dashboard/RecentTest";
-import UploadedTest from "../../components/user_dashboard/UploadedTest";
-import UploadedAuthor from "../../components/user_dashboard/UploadedAuthor";
+// import CompletedTest from "../../components/user_dashboard/CompletedTest";
+// import UploadedTest from "../../components/user_dashboard/UploadedTest";
+// import UploadedAuthor from "../../components/user_dashboard/PopularAuthor";
 import DocumentTitle from "../../components/document-title/DocumentTitle";
 
 function UserDashboard() {
@@ -9,14 +9,14 @@ function UserDashboard() {
   return (
     <>
       <Container className="container">
-        <Stack gap="md">
-          <Title order={2}>Recent</Title>
-          <RecentTest />
-          <Title order={2}>Uploaded Testzes</Title>
-          <UploadedTest />
-          <Title order={2}>Uploaded Authors</Title>
-          <UploadedAuthor />
-        </Stack>
+        {/*<Stack gap="md">*/}
+        {/*  <Title order={2}>Completed Tests</Title>*/}
+        {/*  <CompletedTest />*/}
+        {/*  <Title order={2}>Uploaded Tests</Title>*/}
+        {/*  <UploadedTest />*/}
+        {/*  <Title order={2}>Uploaded Authors</Title>*/}
+        {/*  <UploadedAuthor />*/}
+        {/*</Stack>*/}
       </Container>
     </>
   );
