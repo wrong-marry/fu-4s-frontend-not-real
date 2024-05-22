@@ -18,7 +18,7 @@ export async function action({ request }: { request: any }) {
     const data = await request.formData();
     const formField = Object.fromEntries(data);
     let payload: any = {};
-    let api: string = "authenticate";
+    let api: string = "login";
 
     if (mode !== "login" && mode !== "register") {
       throw new Error("Unsupported mode");
@@ -31,11 +31,11 @@ export async function action({ request }: { request: any }) {
       api = "register";
     }
 
-    const apiUrl = `http://localhost:8080/api/v1/auth/${api}`;
+    const apiUrl = `http://localhost:8080/auth/${api}`;
     const fetchedData = await axios
       .post(apiUrl, payload)
       .then((res) => res.data)
-      .catch((err) => err.response.data);
+      .catch((err) => console.log(err.response.data+api));
 
     let errorFieldExtracted: string[] | null = [];
 

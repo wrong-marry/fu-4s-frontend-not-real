@@ -45,7 +45,7 @@ export function getAuthUserId() {
 
 export function assignLoginPayload(formFieldData: any) {
   return {
-    email: formFieldData.email,
+    username: formFieldData.username,
     password: formFieldData.password,
   };
 }
@@ -56,9 +56,6 @@ export function assignRegisterPayload(formFieldData: any) {
     lastName: formFieldData.lastname,
     email: formFieldData.email,
     password: formFieldData.password,
-    telephone: formFieldData.telephone,
-    userName: formFieldData.username,
-    role: "USER",
-    mfaEnabled: false,
+    username: formFieldData.username
   };
 }

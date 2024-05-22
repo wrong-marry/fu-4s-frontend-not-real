@@ -4,12 +4,12 @@ import axios from "axios";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 export interface StudySet {
-  quizId: number;
+  testId: number;
   numberOfQuestion: number;
   author: string;
   authorFirstName: string;
   authorLastName: string;
-  quizName: string;
+  title: string;
   createdAt: Date;
 }
 export interface ClassData {
@@ -17,7 +17,7 @@ export interface ClassData {
   className: string;
   teacherId: number;
   numberOfStudent: number;
-  numberOfQuizSet: number;
+  numberOfTestSet: number;
   teacherName: string;
   slugCode: string;
 }
@@ -47,17 +47,17 @@ export interface Comments {
 }
 export interface UserCreatedStudySet {
   userId: number;
-  quizId: number;
+  testId: number;
   userName: string;
   userFirstName: string;
   userLastName: string;
   categoryId: number;
-  quizName: string;
+  title: string;
   rate: number;
   numberOfQuestions: number;
   createAt: Date;
   view: number;
-  timeRecentViewQuiz: Date;
+  timeRecentViewTest: Date;
 }
 export interface Member {
   userId: number;
@@ -95,7 +95,7 @@ export async function fetchClassData(classId: number) {
 export async function fetchStudySetsData(classId: number) {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/v1/classroom/quiz-belong-class/class-id=${classId}`
+      `http://localhost:8080/api/v1/classroom/test-belong-class/class-id=${classId}`
     );
     return response.data;
   } catch (error) {
@@ -105,7 +105,7 @@ export async function fetchStudySetsData(classId: number) {
 export async function fetchUserCreatedStudySetsData(userId: number) {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/v1/quiz/get-quiz-create-by-user/user-id=${userId}`
+      `http://localhost:8080/api/v1/test/get-test-create-by-user/user-id=${userId}`
     );
     return response.data;
   } catch (error) {
@@ -144,10 +144,10 @@ export async function fetchCommentsData(questionId: number) {
     throw new Error("Error fetching questions comments");
   }
 }
-export async function addQuizToClassApi(classId: number, quizId: number) {
+export async function addQuizToClassApi(classId: number, testId: number) {
   try {
     const response = await axios.post(
-      `http://localhost:8080/api/v1/classroom/add-quiz/${classId}/quiz/${quizId}`
+      `http://localhost:8080/api/v1/classroom/add-test/${classId}/test/${testId}`
     );
     return response.data;
   } catch (error) {
@@ -156,21 +156,21 @@ export async function addQuizToClassApi(classId: number, quizId: number) {
 }
 export const removeQuizFromClassApi = async (
   classId: number,
-  quizId: number
+  testId: number
 ) => {
   try {
-    // Make API call to remove quiz from class
+    // Make API call to remove test from class
     const response = await axios.delete(
-      `http://localhost:8080/api/v1/classroom/delete-quiz/${classId}/quiz-set/${quizId}`
+      `http://localhost:8080/api/v1/classroom/delete-test/${classId}/test-set/${testId}`
     );
 
     // Handle successful response (optional)
-    console.log("Quiz removed successfully:", response.data);
+    console.log("Test removed successfully:", response.data);
 
     // Optionally, update state or perform any other necessary actions
   } catch (error) {
     // Handle errors
-    console.error("Error removing quiz:", error);
+    console.error("Error removing test:", error);
     // Optionally, show an error message to the user
   }
 };
