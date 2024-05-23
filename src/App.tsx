@@ -45,6 +45,7 @@ import {
   UpdateTestSetLoader,
 } from "./pages/test/update/UpdateTestSet";
 import { settingsAction } from "./pages/settings/SettingsPage";
+import CompletedTest from "./components/user_dashboard/CompletedTest.tsx";
 
 const AuthPage = lazy(() => import("./pages/authentication/authpage/AuthPage"));
 const ForgotPassword = lazy(
@@ -284,6 +285,15 @@ const router = createBrowserRouter([
           <Suspense fallback={loadingIndicator}>
             <LearnPage />
           </Suspense>
+        ),
+        loader: FlashcardLoader,
+      },
+      {
+        path: "completed",
+        element: (
+            <Suspense fallback={loadingIndicator}>
+              <CompletedTest />
+            </Suspense>
         ),
         loader: FlashcardLoader,
       },

@@ -4,18 +4,18 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import classes from "./Carousel.module.css";
 import { useNavigate } from "react-router-dom";
-function RecentTest() {
+function CompletedTest() {
   interface Test {
-    testId: string;
-    testName: string;
-    numberOfQuestions: number;
-    userName: string;
-    view: number;
-    timeRecentViewTest: string; // Change the type to string
+    id: number;
+    title: string;
+    result: number;
+    date: Date;
+    username: string;
+    // Change the type to string
     // Add other properties as needed
   }
 
-  const [recentTest, setRecentTest] = useState<Test[]>([]);
+  const [completedTest, setCompletedTest] = useState<Test[]>([]);
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
   useEffect(() => {
@@ -26,16 +26,16 @@ function RecentTest() {
           res && res.data
             ? res.data.sort(
                 (
-                  a: { timeRecentViewTest: string | number | Date },
-                  b: { timeRecentViewTest: string | number | Date }
+                  a: { date: string | number | Date },
+                  b: { date: string | number | Date }
                 ) => {
-                  const timeA = new Date(a.timeRecentViewTest).getTime();
-                  const timeB = new Date(b.timeRecentViewTest).getTime();
-                  return timeB - timeA; // Sort in descending order for most recent views first
+                  const timeA = new Date(a.date).getTime();
+                  const timeB = new Date(b.date).getTime();
+                  return timeB - timeA; // Sort in descending order for most completed views first
                 }
               )
             : [];
-        setRecentTest(sortedList);
+        setCompletedTest(sortedList);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -57,8 +57,8 @@ function RecentTest() {
   };
   return (
     <>
-      {recentTest.length === 0 ? (
-        <Text c={"dimmed"}>No recent tests available :(</Text>
+      {completedTest.length === 0 ? (
+        <Text c={"dimmed"}>No completed tests available :(</Text>
       ) : (
         <Carousel
           slideSize={"33.333333%"}
@@ -70,7 +70,7 @@ function RecentTest() {
           dragFree
           classNames={classes}
         >
-          {recentTest?.map((test, index) => (
+          {completedTest?.map((test, index) => (
             <Carousel.Slide key={index}>
               <Card
                 shadow="sm"
@@ -82,21 +82,21 @@ function RecentTest() {
               >
                 <Stack
                   onClick={() => {
-                    handleClickUpdateTime(test.testId);
-                    handleClickIncreaseView(test.testId);
-                    navigate(`/test/set/${test.testId}`);
+                    handleClickUpdateTime(test.id);
+                    handleClickIncreaseView(test.id);
+                    navigate(`/test/set/${test.id}`);
                   }}
                   className="cursor-pointer justify-between h-full"
                 >
                   <Stack gap={2}>
-                    <Text fw={500}>{test.testName}</Text>
+                    <Text fw={500}>{test.title}</Text>
                     <Badge color="indigo">
-                      {test.numberOfQuestions} Question
+                      Unknown number of Questions
                     </Badge>
                   </Stack>
                   <Group gap={"xs"}>
                     <Avatar variant="filled" radius="xl" size="sm" />
-                    <Text size="sm">{test.userName}</Text>
+                    <Text size="sm">{test.username}</Text>
                   </Group>
                 </Stack>
               </Card>
@@ -108,4 +108,4 @@ function RecentTest() {
   );
 }
 
-export default RecentTest;
+export default CompletedTest;
